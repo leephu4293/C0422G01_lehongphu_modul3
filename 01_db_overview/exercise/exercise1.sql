@@ -1,7 +1,7 @@
 use my_database;
-create table class (
-id  int,
-name_student varchar (50)
+CREATE TABLE class (
+    id INT,
+    name_student VARCHAR(50)
 );
 alter table class add primary key (id); 
 create table teacher (
