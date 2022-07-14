@@ -12,7 +12,7 @@ create table teacher (
 	id int, 
 	nameTeacher varchar(50),
 	age int, 
-country varchar(50)
+	country varchar(50)
 );
 
 insert into class (id,name_student) 
