@@ -77,22 +77,24 @@ WHERE  MONTH(StartDate) = '12';
  -- Hiển thị tất cả các thông tin môn học có credit trong khoảng từ 3-5.       
 SELECT *
 FROM `subject` s
-WHERE s.Credit BETWEEN 3 AND 5;
+WHERE 
+	s.Credit BETWEEN 3 AND 5;
 
 -- Thay đổi mã lớp(ClassID) của sinh viên có tên ‘Hung’ là 2.
 SET sql_safe_updates = 0;
-UPDATE student 
+	UPDATE student 
 SET ClassId = 2
-WHERE StudentName = "Hung";
+	WHERE StudentName = "Hung";
 SET sql_safe_updates = 1;
 
 -- Hiển thị các thông tin: StudentName, SubName, Mark. Dữ liệu sắp xếp theo điểm thi (mark) giảm dần. nếu trùng sắp theo tên tăng dần.
-SELECT StudentName, SubName,  Mark
+SELECT 
+	StudentName, 
+    SubName,  
+    Mark
 FROM student s 
-JOIN Mark m 
-ON s.ClassId = m.MarkId
-JOIN `subject` sub
-ON m.SubID = sub.SubId
+	JOIN Mark m ON s.ClassId = m.MarkId
+	JOIN `subject` sub ON m.SubID = sub.SubId
 ORDER BY m.Mark DESC , s.StudentName;
 
 

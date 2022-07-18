@@ -68,32 +68,32 @@ select o_id, c_id, o_total_price
 from `order` ;
 
 -- Hiển thị danh sách các khách hàng đã mua hàng, và danh sách sản phẩm được mua bởi các khách
-select c_name, p_name 
+select 
+	c_name, 
+	p_name 
 from customer c 
-join `order` o  
-on c.c_id = o.o_id
-join order_detail order_total
-on order_total.o_id = o.o_id
-join product p 
-on order_total.p_id = p.p_id;
+	join `order` o  on c.c_id = o.o_id
+	join order_detail order_total on order_total.o_id = o.o_id
+	join product p on order_total.p_id = p.p_id;
 
 -- Hiển thị tên những khách hàng không mua bất kỳ một sản phẩm nào
-select c_name
+select 
+	c_name
 from customer c 
-left join `order` o 
-on c.c_id= o.c_id
+	left join `order` o on c.c_id= o.c_id
 where o_id is  null;
 
 -- Hiển thị mã hóa đơn, ngày bán và giá tiền của từng hóa đơn 
 -- (giá một hóa đơn được tính bằng tổng giá bán của từng loại mặt hàng xuất hiện trong hóa đơn. 
 -- Giá bán của từng loại được tính = odQTY*pPrice)
 
-select o.o_id, o_date, sum(od_qty*p_price)
+select 
+	o.o_id, 
+	o_date, 
+	sum(od_qty*p_price)
 from  `order` o 
-join order_detail  order_detal
-on o.o_id = order_detal.o_id
-join product p 
-on order_detal.p_id = p.p_id
+	join order_detail  order_detalon on o.o_id = order_detal.o_id
+	join product p on order_detal.p_id = p.p_id
 group by  o.o_id;
 
 
