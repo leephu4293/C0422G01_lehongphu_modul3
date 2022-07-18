@@ -69,18 +69,21 @@ SELECT * , MAX(s.Credit)
 FROM `subject` s;
 
 -- Hiển thị các thông tin môn học có điểm thi lớn nhất.
-SELECT  s.SubId, s.SubName, s.Credit, s.Status
+SELECT 
+	 s.SubId,
+	 s.SubName, 
+	 s.Credit,
+	 s.Status
 FROM `subject` s
-JOIN mark m 
-ON s.SubId = m.SubId 
+	JOIN mark m ON s.SubId = m.SubId 
 WHERE m.mark = (SELECT MAX(m.Mark)
 FROM mark m );
 
 -- Hiển thị các thông tin sinh viên và điểm trung bình của mỗi sinh viên, xếp hạng theo thứ tự điểm giảm dần
-SELECT * , AVG(Mark) as diem_trung_binh
+SELECT * , 
+	AVG(Mark) as diem_trung_binh
 FROM student s 
-JOIN mark m 
-on s.StudentId = m.StudentId
+	JOIN mark m ON s.StudentId = m.StudentId
 GROUP BY s.StudentName
 ORDER BY m.Mark DESC;
 
