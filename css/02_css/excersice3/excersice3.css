@@ -43,6 +43,7 @@
 .contant{
     background-color: cadetblue;
     color: black;
+    height: 800px;
 }
 #head{
     text-align: center;
@@ -53,6 +54,7 @@ ul{
 li{
     margin: 20px;
 }
+
 .height{
     height: 50px;
 }
@@ -78,4 +80,8 @@ input{
     margin-left: 550px;
     text-align: center;
     color: black;
+}
+#home h3 :hover{
+    color:  black;
+    font-weight: bolder;
 }
