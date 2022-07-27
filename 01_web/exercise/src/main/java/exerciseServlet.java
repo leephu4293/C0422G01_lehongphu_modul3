@@ -7,9 +7,9 @@ import java.io.IOException;
 public class exerciseServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String namepro = request.getParameter("pro");
-        double number1 = Double.parseDouble(request.getParameter("pri"));
-        double number2 = Double.parseDouble(request.getParameter("per"));
+        String namepro = request.getParameter("product");
+        double number1 = Double.parseDouble(request.getParameter("price"));
+        double number2 = Double.parseDouble(request.getParameter("percent"));
         double discount =  number1*number2*0.01;
         double lastPrice = number1 - discount;
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("result.jsp");
