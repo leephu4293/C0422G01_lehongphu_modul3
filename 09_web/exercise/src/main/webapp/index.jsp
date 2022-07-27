@@ -11,7 +11,7 @@
     <title>$Title$</title>
   </head>
   <body>
-  <form action="/count">
+  <form action="/count" method="post">
    <p>  Product Description </p> <input type="text" name="product" placeholder=" Product Description">
    <p>  List Price          </p> <input type="text"  name="price" placeholder="List Price">
    <p>  Discount Percent </p>    <input type="text"  name="percent" placeholder="Discount Percent">

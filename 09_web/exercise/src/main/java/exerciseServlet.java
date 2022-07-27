@@ -7,6 +7,12 @@ import java.io.IOException;
 public class exerciseServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String namepro = request.getParameter("product");
         double number1 = Double.parseDouble(request.getParameter("price"));
         double number2 = Double.parseDouble(request.getParameter("percent"));
@@ -17,11 +23,5 @@ public class exerciseServlet extends HttpServlet {
         request.setAttribute("lastPrice",lastPrice);
         request.setAttribute("productName",namepro);
         requestDispatcher.forward(request,response);
-
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }
