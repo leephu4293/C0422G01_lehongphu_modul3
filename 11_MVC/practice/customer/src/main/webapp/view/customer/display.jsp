@@ -16,6 +16,7 @@
 
 <h1>DANH SACH KHACH HANG</h1>
 <p> <a href="/Customer?action=add"> them moi khach hang </a></p>
+<p> <a href="/Customer?action=find"> tim khach hang </a></p>
 <table border="2">
     <tr>
         <th>ID </th>

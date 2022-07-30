@@ -15,9 +15,25 @@
 <form method="post">
   <p> nhap id kh muon tim  </p>
   <input type="text" name="id" >
+    <input type="submit" value="submit">
 </form>
 <c:if test="${mess!= null}">
     <p> ${mess}</p>
 </c:if>
+<table border="2">
+    <tr>
+        <th>ID </th>
+        <th>NAME </th>
+        <th> EMAIL </th>
+        <th> ADRESS </th>
+    </tr>
+        <tr>
+            <td>${customer.id}</td>
+            <td>${customer.name}</td>
+            <td>${customer.email}</td>
+            <td>${customer.add}</td>
+        </tr>
+</table>
+<a href="/Customer"></a>
 </body>
 </html>
