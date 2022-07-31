@@ -8,9 +8,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @WebServlet(name = "ProductServlet", value = "/Product")
 public class ProductServlet extends HttpServlet {
@@ -34,8 +32,8 @@ public class ProductServlet extends HttpServlet {
             case "selection":
                 showSelection(request,response);
                 break;
-            case "seach":
-                showSeach(request,response);
+            case "search":
+                showSearch(request,response);
                 break;
             default:
                 display(request,response);
@@ -85,8 +83,8 @@ public class ProductServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
-    private void showSeach(HttpServletRequest request, HttpServletResponse response) {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/Product/seach.jsp");
+    private void showSearch(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/Product/display.jsp");
         try {
             requestDispatcher.forward(request,response);
         } catch (ServletException e) {
@@ -130,14 +128,14 @@ public class ProductServlet extends HttpServlet {
                  break;
              case "display":
                  break;
-             case "seach":
-                 seach(request,response);
+             case "search":
+                 search(request,response);
                  break;
              default:
          }
     }
 
-    private void seach(HttpServletRequest request, HttpServletResponse response) {
+    private void search(HttpServletRequest request, HttpServletResponse response) {
         String name =  request.getParameter("name");
         List<Product> list = productService.seach(name);
         if(list.isEmpty()){
@@ -145,7 +143,7 @@ public class ProductServlet extends HttpServlet {
         } else {
             request.setAttribute("list",list);
         }
-        showSeach(request,response);
+        showSearch(request,response);
     }
 
 
@@ -201,5 +199,6 @@ public class ProductServlet extends HttpServlet {
         productService.addNew(product);
         request.setAttribute("mess", "them moi thanh cong");
         showAddNew(request,response);
+
     }
 }

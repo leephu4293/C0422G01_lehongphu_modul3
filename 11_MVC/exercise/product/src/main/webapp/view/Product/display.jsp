@@ -17,8 +17,40 @@
 <p><a href="/Product?action=selection"> hien thi chi tiet san pham </a></p>
 <p><a href="/Product?action=edit"> update  san pham </a></p>
 <p><a href="/Product?action=delete"> nhap ma san pham muon xoa </a></p>
-<p><a href="/Product?action=seach"> tìm theo ten</a></p>
 
+
+<form  action="/Product?action=search" method="post">
+    <p> nhap ten san pham muon tim </p>
+    <input type="text" name="name">
+    <p><input type="submit" value="enter"></p>
+</form>
+
+<c:if test="${mess!= null}">
+    <p>${mess}</p>
+</c:if>
+
+<c:if test="${list != null }">
+    <table border="2">
+        <tr>
+            <th> ma san pham</th>
+            <th> ten san pham</th>
+            <th> so luong</th>
+            <th> gia san pham</th>
+            <th> trang thai mo ta</th>
+        </tr>
+        <c:forEach var="product" items="${list}">
+            <tr>
+                <td>${product.code}</td>
+                <td>${product.name}</td>
+                <td>${product.number}</td>
+                <td>${product.price}</td>
+                <td>${product.explan}</td>
+            </tr>
+        </c:forEach>
+    </table>
+</c:if>
+
+<c:if test="${list == null}">
 <table border="2">
     <tr>
         <th> ma san pham</th>
@@ -43,5 +75,6 @@
     </c:forEach>
     </tr>
 </table>
+</c:if>
 </body>
 </html>
