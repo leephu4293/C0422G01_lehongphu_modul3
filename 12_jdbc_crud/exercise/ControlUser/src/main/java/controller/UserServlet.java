@@ -10,7 +10,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "UserServlet", value = "/user")
+@WebServlet(name = "UserServlet", urlPatterns ={"/user",""} )
 public class UserServlet extends HttpServlet {
     private static IUserService userService = new UserService();
 
@@ -63,9 +63,6 @@ public class UserServlet extends HttpServlet {
             case "update":
                  update(request,response);
                 break;
-            case "sort":
-
-                break;
             default:
 
         }
@@ -73,9 +70,13 @@ public class UserServlet extends HttpServlet {
 
     private void sort(HttpServletRequest request, HttpServletResponse response) {
         List<User> userList = userService.sort();
-        request.setAttribute("sortlist",userList);
+        request.setAttribute("list",userList);
         showSort(request,response);
-        display(request,response);
+        try {
+            response.sendRedirect("/user");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     private void showSort(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/user/display.jsp");
@@ -94,9 +95,8 @@ public class UserServlet extends HttpServlet {
         List<User> userList = userService.search(country);
         if (userList.isEmpty()){
             request.setAttribute("mess","khong co quoc gia can tim");
-            display(request,response);
         }else {
-            request.setAttribute("listcountry", userList);
+            request.setAttribute("list", userList);
         }
         showSearch(request,response);
     }
@@ -138,6 +138,11 @@ public class UserServlet extends HttpServlet {
             requestDispatcher.forward(request,response);
         } catch (ServletException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            response.sendRedirect("/user");
         } catch (IOException e) {
             e.printStackTrace();
         }

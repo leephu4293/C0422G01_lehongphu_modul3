@@ -16,7 +16,7 @@ public class UserReponsitory implements IUserReponsitory{
     private final String ADD = "insert into users (fullname,email,country)" + "values(?,?,?);";
     private final String DELETE = "delete  from users where users.id = ?;";
     private final String UPDATE = " update users set fullname = ?,email = ?,country = ? where id = ?;";
-    private final String SEARCH = "select * from users where country  = ?";
+    private final String SEARCH = "select * from users where country  like ?";
     private final String SORT = "select * from users order by fullname";
     @Override
     public List <User> display() {
@@ -93,14 +93,14 @@ public class UserReponsitory implements IUserReponsitory{
       List<User> userList = new ArrayList<>();
         try {
             PreparedStatement preparedStatement= connection.prepareStatement(SEARCH);
-            preparedStatement.setString(1,country);
+            preparedStatement.setString(1,"%"+country+"%");
             ResultSet resultSet = preparedStatement.executeQuery();
-
             while (resultSet.next()){
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("fullname");
                 String email = resultSet.getString("email");
-                 User user = new User(id,name,email,country);
+                String setCountry = resultSet.getString("country");
+                 User user = new User(id,name,email,setCountry);
                  userList.add(user);
             }
         } catch (SQLException e) {
