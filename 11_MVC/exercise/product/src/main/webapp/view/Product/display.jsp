@@ -59,7 +59,7 @@
         <th> gia san pham</th>
         <th> trang thai mo ta</th>
         <th> sua thong tin </th>
-        <th> xoa san pham  </th>
+
     </tr>
     <tr>
         <c:forEach var="product" items="${product}">
@@ -70,7 +70,6 @@
         <td>${product.price}</td>
         <td>${product.explan}</td>
         <td><a href="view/Product/edit.jsp"> edit</a></td>
-        <td><a href="view/Product/delete.jsp">delete</a></td>
     </tr>
     </c:forEach>
     </tr>

@@ -139,7 +139,8 @@ public class ProductServlet extends HttpServlet {
         String name =  request.getParameter("name");
         List<Product> list = productService.seach(name);
         if(list.isEmpty()){
-            request.setAttribute("mess","khong co te ncan tim");
+            request.setAttribute("mess","khong co san pham can tim");
+            display(request,response);
         } else {
             request.setAttribute("list",list);
         }

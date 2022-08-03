@@ -1,12 +1,11 @@
 package service;
 
 import model.Product;
-import reponsitory.IMPL.IProductReponsitory;
-import reponsitory.ProductReponsitory;
+import repository.IMPL.IProductReponsitory;
+import repository.ProductReponsitory;
 import service.IMPL.IProductService;
 
 import java.util.List;
-import java.util.Map;
 
 public class ProductService implements IProductService {
     private static IProductReponsitory iProductReponsitory = new ProductReponsitory();

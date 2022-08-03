@@ -10,6 +10,8 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="bootstrap-5.1.3-dist/css/bootstrap.css">
+
 </head>
 <body>
 <h1>THEM MOI SAN PHAM </h1>
@@ -18,7 +20,7 @@
     <p>${mess}</p>
 </c:if>
 <form action="/Product?action=addNew" method="post">
- <p> nhap ma san pham </p>
+ <p class="text-danger"> nhap ma san pham </p>
   <input type="text" name="code">
  <p> nhap ten san pham </p>
     <input type="text" name="name">
@@ -29,6 +31,8 @@
  <p>nhap trang thai  san pham </p>
     <input type="text" name="status">
     <p><input type="submit" value="enter"></p>
+
+    <script src="bootstrap-5.1.3-dist/js/bootstrap.js"></script>
 </form>
 </body>
 </html>
