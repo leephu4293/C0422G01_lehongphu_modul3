@@ -2,7 +2,7 @@ package controller;
 
 import model.User;
 import service.IUserService;
-import service.UserService;
+import service.impl.UserService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -16,6 +16,8 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
         if (action == null) {
             action = "";
@@ -28,7 +30,7 @@ public class UserServlet extends HttpServlet {
                 sort(request,response);
                 break;
             case "delete":
-              showDelete(request,response);
+                delete(request,response);
                 break;
             case "update":
               showUpdate(request,response);
@@ -38,7 +40,6 @@ public class UserServlet extends HttpServlet {
                 break;
             default:
                 display(request,response);
-
         }
     }
 
@@ -46,6 +47,8 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
         if (action == null) {
             action = "";
@@ -56,9 +59,6 @@ public class UserServlet extends HttpServlet {
                 break;
             case "search":
               search(request,response);
-                break;
-            case "delete":
-                delete(request,response);
                 break;
             case "update":
                  update(request,response);
@@ -113,6 +113,7 @@ public class UserServlet extends HttpServlet {
         }
     }
     private void showUpdate(HttpServletRequest request, HttpServletResponse response) {
+
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/user/update.jsp");
         try {
             requestDispatcher.forward(request,response);
@@ -122,16 +123,7 @@ public class UserServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
-    private void showDelete(HttpServletRequest request, HttpServletResponse response) {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/user/delete.jsp");
-        try {
-            requestDispatcher.forward(request,response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
     private void showSearch(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/user/display.jsp");
         try {
@@ -141,11 +133,7 @@ public class UserServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            response.sendRedirect("/user");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
     private void display(HttpServletRequest request, HttpServletResponse response) {
@@ -161,7 +149,9 @@ public class UserServlet extends HttpServlet {
           String country = request.getParameter("country");
           User user = new User(id,name,email,country);
          if(userService.update(id,user)){
+             request.setAttribute("list",user);
              request.setAttribute("mess","update thanh cong");
+
          } else {
              request.setAttribute("mess","update khong thanh cong");
          }
@@ -195,11 +185,11 @@ public class UserServlet extends HttpServlet {
     private void delete(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
         if(userService.delete(id)){
-            request.setAttribute("mess","xoa thanh cong");
+            request.setAttribute("messdelete","xoa thanh cong");
         }else {
-            request.setAttribute("mess", "xoa khong thanh cong");
+            request.setAttribute("messdelete", "xoa khong thanh cong");
         }
-           showDelete(request,response);
+       display(request,response);
     }
 
 

@@ -44,7 +44,6 @@
         <th> sua theo id </th>
         <th> xoa </th>
     </tr>
-    <tr>
         <c:forEach var="list" items="${list}">
     <tr>
         <td> ${list.id}</td>
@@ -52,12 +51,33 @@
         <td>${list.email}</td>
         <td>${list.country}</td>
         <td> <a  class="btn btn-primary" href="/user?action=update"> update theo id </a></td>
-        <td> <a  class="btn btn-primary" href="/user?action=delete"> xoa theo id </a></td>
-
+        <td>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#model-${list.id}">
+               xoa theo id
+            </button>
+            <div class="modal fade" id="model-${list.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            xoa hay k
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">khong</button>
+                            <a class="btn btn-primary" href="/user?action=delete&id=${list.id}">co</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
     </tr>
     </c:forEach>
-    </tr>
 </table>
-
+ <c:if test="${messdelete != null}">
+    <p>${messdelete}</p>
+</c:if>
 </body>
 </html>

@@ -1,8 +1,9 @@
-package service;
+package service.impl;
 
 import model.User;
 import reponsitory.IUserReponsitory;
-import reponsitory.UserReponsitory;
+import reponsitory.impl.UserReponsitory;
+import service.IUserService;
 
 import java.util.List;
 

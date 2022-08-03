@@ -16,9 +16,9 @@
 
 <form action="/user?action=update" method="post">
     <h1>nhap id muon sua </h1>
-    <input type="text" name="id" value="">
+    <input type="text" name="id" value="${list.id}">
     <h1>  nhap ten muon sua </h1>
-    <input type="text" name="name">
+    <input type="text" name="name" value="${list.name}">
 
     <h1>nhap email muon sua </h1>
     <input type="text" name="email">
