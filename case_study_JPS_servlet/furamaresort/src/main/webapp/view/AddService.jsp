@@ -30,7 +30,7 @@
 <div class="row">
     <div class="col-lg-3"></div>
     <div class="col-lg-6 " >
-        <form class="text-dark bg-light" style="box-shadow: 10px 10px 10px 10px black; border-radius: 10px">
+        <form class="text-dark bg-light" style="box-shadow:  10px 10px 10px black; border-radius: 10px">
 
             <div class="css">
 
