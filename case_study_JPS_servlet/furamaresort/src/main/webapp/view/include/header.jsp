@@ -42,7 +42,7 @@
 
  <nav class="navbar navbar-expand-lg bg-success sticky-lg-top ">
     <div class="container-fluid">
-        <a class="navbar-brand text-light" href="#">Home</a>
+        <a class="navbar-brand text-light" href="/view?action=home">Home</a>
         <li class="nav-item dropdown " style="list-style:none ">
             <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown1" role="button"
                data-bs-toggle="dropdown" aria-expanded="false">
@@ -71,7 +71,7 @@
                 Dich vu
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
-                <li><a class="dropdown-item" href="#">List</a></li>
+                <li><a class="dropdown-item" href="/view?action?=listservice">List</a></li>
                 <li><a class="dropdown-item" href="#">Villa</a></li>
                 <li><a class="dropdown-item" href="#">House</a></li>
                 <li>

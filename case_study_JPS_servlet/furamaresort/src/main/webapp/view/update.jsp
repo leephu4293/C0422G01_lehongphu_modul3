@@ -9,20 +9,27 @@
 <html>
 <head>
     <title>Title</title>
+    <style>
+        .css{
+            margin-left: 80px;
+            border-radius: 10px;
+        }
+    </style>
     <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
 </head>
 <body>
 
-<h1 class="text-lg-center"> SUA DICH VU  </h1>
+<%@include file="/view/include/header.jsp"%>
 
 <div class="row">
     <div class="col-lg-3"></div>
     <div class="col-lg-6 " >
-        <form class="text-dark bg-light" style="box-shadow: 10px 10px 10px 10px black; border-radius: 10px">
+        <form class="text-dark bg-light" style="box-shadow: 10px 10px 10px 10px black; border-radius: 10px; margin-top: 50px">
+            <h1 class="text-lg-center"> SUA DICH VU  </h1>
+
 
             <div class="css">
-
-                <label>  chon loai muon them </label>
+                <label>  chon loai muon sua </label>
                 <select  onchange="addNew(this.value)">
                     <option value="room">Room</option>
                     <option value="villa">Villa</option>
@@ -90,4 +97,33 @@
 
 <script src="/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
 </body>
+<script>
+    function addNew(value) {
+
+        switch (value){
+            case "villa":
+                document.getElementById("s1").style.display = "block"
+                document.getElementById("s2").style.display = "block"
+                document.getElementById("s3").style.display = "block"
+                document.getElementById("s4").style.display = "block"
+                document.getElementById("s5").style.display = "none"
+                break
+            case "house":
+                document.getElementById("s1").style.display = "block"
+                document.getElementById("s2").style.display = "block"
+                document.getElementById("s3").style.display = "none"
+                document.getElementById("s4").style.display = "block"
+                document.getElementById("s5").style.display = "none"
+                break;
+            case "room":
+                document.getElementById("s1").style.display = "none"
+                document.getElementById("s2").style.display = "none"
+                document.getElementById("s3").style.display = "none"
+                document.getElementById("s4").style.display = "none"
+                document.getElementById("s5").style.display = "block"
+                break;
+        }
+    }
+
+</script>
 </html>

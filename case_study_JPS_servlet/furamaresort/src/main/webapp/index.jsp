@@ -176,7 +176,7 @@
 
   </div>
 
- <%@include file="/view/include/foster.jsp"%>
+ <%@include file="/view/include/footer.jsp"%>
 
 <script src="bootstrap-5.0.2-dist/jquery-3.6.0.min.js"></script>
 <script src="bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
