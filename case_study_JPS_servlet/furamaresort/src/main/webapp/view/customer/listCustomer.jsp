@@ -31,6 +31,8 @@
                         <th>DIEN THOAI </th>
                          <th>EMAIL  </th>
                         <th> DIA CHI   </th>
+                        <th> SUA   </th>
+                        <th> XOA   </th>
                     </tr>
 
                     <tr>
@@ -39,36 +41,72 @@
                         <tr>
                             <td>${customer.id}</td>
 
-                    <c:forEach var="type" items="${ListType}">
-                       <c:if test="${customer.customerType == type.idType}">
-                                <td>${type.nameType}</td>
-                       </c:if>
-                    </c:forEach>
+                                <c:forEach var="type" items="${ListType}">
+                                   <c:if test="${customer.customerType == type.idType}">
+                                            <td>${type.nameType}</td>
+                                   </c:if>
+                                </c:forEach>
 
                             <td>${customer.name}</td>
                             <td>${customer.dayOfBirth}</td>
-                    <c:if test="${customer.gender == true}">
-                          <td>Nam</td>
-                    </c:if>
-                        <c:if test="${customer.gender == false}">
-                            <td>Nu</td>
-                        </c:if>
+
+                                <c:if test="${customer.gender == true}">
+                                      <td>Nam</td>
+                                </c:if>
+                                <c:if test="${customer.gender == false}">
+                                    <td>Nu</td>
+                                </c:if>
 
                             <td>${customer.iden}</td>
                             <td>${customer.phone}</td>
                             <td>${customer.email}</td>
                             <td>${customer.address}</td>
-
+                            <td><a class="btn btn-primary" href="/view?action=update&id=${customer.id} ">SUA</a></td>
+                            <td><a class="btn btn-primary" href="/view?action=delete&id=${customer.id} "
+                                   data-bs-toggle="modal" data-bs-target="#exampleModal1" onclick="modaldelate(${customer.id})">XOA</a></td>
                         </tr>
-
                     </c:forEach>
                     </tr>
-
                 </table>
+
+                <form action="/view" id="deletefrom">
+                    <input hidden name="action" value="delete">
+                    <input hidden name="idcus" id="takeId">
+                </form>
             </div>
             <div class="col-lg-1"></div>
         </div>
 
+
+        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Ban chac chan muon xoa ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huy</button>
+                        <button type="button" class="btn btn-primary" onclick="submitForm()">Dong Y</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
 </body>
+<script>
+    function modaldelate(idCustomer){
+        document.getElementById("takeId").value=idCustomer;
+    }
+    function submitForm(){
+        document.getElementById("deletefrom").submit();
+    }
+
+</script>
 <script src="/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
 </html>

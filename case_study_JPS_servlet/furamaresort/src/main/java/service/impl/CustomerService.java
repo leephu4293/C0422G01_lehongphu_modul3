@@ -18,18 +18,20 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public Customer findById() {
-        return null;
+    public Customer findById(int id) {
+        return customerRepository.findById(id);
     }
 
+
     @Override
-    public void update(int id) {
+    public void update(Customer customer) {
+        customerRepository.update(customer);
 
     }
 
     @Override
     public void delete(int id) {
-
+     customerRepository.delete(id);
     }
 
     @Override

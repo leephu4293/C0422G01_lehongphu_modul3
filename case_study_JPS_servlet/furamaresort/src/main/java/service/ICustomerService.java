@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface ICustomerService {
     List<Customer> display ();
-    Customer findById();
-    void update (int id);
+    Customer findById(int id);
+    void update (Customer customer);
     void delete(int id);
     List<CustomerType> listType();
     void  AddCustomer(Customer customer);
