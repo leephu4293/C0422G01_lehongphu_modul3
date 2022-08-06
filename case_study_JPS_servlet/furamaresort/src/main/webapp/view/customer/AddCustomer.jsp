@@ -25,51 +25,54 @@
 <div class="row">
     <div class="col-lg-3"></div>
     <div class="col-lg-6 "  style="margin-top: 100px" >
-        <form class="text-dark bg-light justify-content-center align-items-lg-center" style="box-shadow: 10px 10px black; border-radius: 10px; border: 10px">
-                  <h5 class="text-lg-center"> THEM MOI NHAN VIEN </h5>
+        <form class="text-dark bg-light justify-content-center align-items-lg-center" style="box-shadow: 10px 10px black; border-radius: 10px; border: 10px" action="/view?action=add" method="post">
+                  <h5 class="text-lg-center"> THEM MOI KHACH HANG </h5>
             <div  class="css">
                 <label>Ho Ten </label>
-                <input type="text" class="form-control rounded-3 w-75" placeholder="Ho Ten" >
+                <input type="text" class="form-control rounded-3 w-75"  name="name" placeholder="Ho Ten" >
             </div>
-
             <div  class="css">
+
                 <label>Ngay Sinh </label>
-                <input type="text" class="form-control rounded-3 w-75" placeholder="Ngay Sinh" >
+                <input type="date" class="form-control rounded-3 w-75" name="birth" placeholder="Ngay Sinh" >
             </div>
 
             <div  class="css">
                 <label>Gioi Tinh</label>
-                <input type="text" class="form-control rounded-3 w-75" placeholder="Gioi Tinh" >
+                  <select name="gender">
+                      <option value="true">Nam</option>
+                      <option value="false">Nu</option>
+                  </select>
             </div>
 
             <div  class="css">
                 <label>CMND</label>
-                <input type="text" class="form-control rounded-3 w-75" placeholder=" CMND" >
+                <input type="text" class="form-control rounded-3 w-75" name="iden" placeholder=" CMND" >
             </div>
 
             <div  class="css" >
                 <label>So Dien Thoai</label>
-                <input type="text" class="form-control rounded-3 w-75"  placeholder="So Dien Thoai">
+                <input type="text" class="form-control rounded-3 w-75" name="phone" placeholder="So Dien Thoai">
             </div>
             <div  class="css" >
                 <label>Email</label>
-                <input type="text" class="form-control rounded-3 w-75"  placeholder="Email">
+                <input type="text" class="form-control rounded-3 w-75" name="email" >
             </div>
 
             <div  class="css">
                 <label> Loai khach </label>
-                 <select style="margin-top: 3px; border-radius: 10px">
-                     <option>   Diamond </option>
-                     <option> Platinium</option>
-                     <option>  Gold</option>
-                     <option> Silver</option>
-                     <option> Member</option>
+
+                 <select style="margin-top: 3px; border-radius: 10px" name="type">
+                     <c:forEach var="list" items="${listType}">
+                         <option value="${list.idType}">   ${list.nameType} </option>
+                     </c:forEach>
                  </select>
+
             </div>
 
             <div  class="css" id="s2">
                 <label> Dia Chi </label>
-                <input type="text" class="form-control rounded-3 w-75"  placeholder="Dia Chi">
+                <input type="text" class="form-control rounded-3 w-75" name="address" placeholder="Dia Chi">
             </div>
 
             <p></p>

@@ -43,7 +43,7 @@
 
  <nav class="navbar navbar-expand-lg bg-success sticky-lg-top ">
     <div class="container-fluid">
-        <a class="navbar-brand text-light" href="/view?action=home">Home</a>
+        <a class="navbar-brand text-light" href="/view">Home</a>
         <li class="nav-item dropdown " style="list-style:none ">
             <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown1" role="button"
                data-bs-toggle="dropdown" aria-expanded="false">

@@ -47,15 +47,15 @@
 
       <nav class="navbar navbar-expand-lg bg-success sticky-lg-top ">
           <div class="container-fluid">
-              <a class="navbar-brand text-light" href="/view?action=home">Home</a>
+              <a class="navbar-brand text-light" href="/view">Home</a>
               <li class="nav-item dropdown " style="list-style:none ">
                   <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown1" role="button"
                      data-bs-toggle="dropdown" aria-expanded="false">
                       Khach Hang
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                      <li><a class="dropdown-item" href="#">List</a></li>
-                      <li><a class="dropdown-item" href="#">Add New</a></li>
+                      <li><a class="dropdown-item" href="/view?action=display">List</a></li>
+                      <li><a class="dropdown-item" href="/view?action=add">Add New</a></li>
 
                   </ul>
               </li>
@@ -65,7 +65,7 @@
                       Nhan Vien
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                      <li><a class="dropdown-item" href="#">List</a></li>
+                      <li><a class="dropdown-item" href="/view?action=display">List</a></li>
                       <li><a class="dropdown-item" href="#">Add New</a></li>
                   </ul>
               </li>
