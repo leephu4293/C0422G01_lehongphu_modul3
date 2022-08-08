@@ -13,64 +13,74 @@
     <title>Title</title>
 </head>
 <body>
-  <h2 class="text-lg-center"> DANH SACH DICH VU </h2>
+ <%@include file="/view/include/header.jsp"%>
+  <h2 class="text-lg-center container-fluid"> DANH SACH DICH VU </h2>
   <div class="row">
       <div class="col-lg-12">
-  <table class="table table-hover">
-      <thead>
-      <tr>
-          <th scope="col">MA DV</th>
-          <th scope="col">TEN DICH VU</th>
-          <th scope="col">DIEN TICH SU DUNG</th>
-          <th scope="col">CHI PHI THUE</th>
-          <th scope="col">SO NGUOI TOI DA </th>
-          <th scope="col">KIEU THUE  </th>
-          <th scope="col"> SUA </th>
-          <th scope="col"> XOA  </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-          <th scope="row">1</th>
-          <td>Villa</td>
-          <td>120</td>
-          <td>2000000</td>
-          <td>15</td>
-          <td>3day</td>
-          <td><a class="btn btn-primary">SUA</a></td>
-          <td><a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">XOA</a></td>
+              <table class="table table-hover">
+                  <thead>
+                  <tr>
+                      <th scope="col">MA DV</th>
+                      <th scope="col">TEN DICH VU</th>
+                      <th scope="col">DIEN TICH SU DUNG</th>
+                      <th scope="col">CHI PHI THUE</th>
+                      <th scope="col">SO NGUOI TOI DA </th>
+                      <th scope="col"> MA KIEU THUE  </th>
+                      <th scope="col"> MA LOAI DICH VU  </th>
+                      <th scope="col"> TIEU CHUAN PHONG  </th>
+                      <th scope="col"> TIEN NGHI KHAC  </th>
+                      <th scope="col"> DIEN TICH HO BOI  </th>
+                      <th scope="col"> SO TANG  </th>
+                      <th scope="col"> DICH VU DI KEM   </th>
+                      <th scope="col"> SUA </th>
+                      <th scope="col"> XOA  </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <c:forEach var="list" items="${list}">
+                  <tr>
+                      <th>${list.facilityCode}</th>
+                      <td>${list.name}</td>
+                      <td>${list.area}</td>
+                      <td>${list.cost}</td>
+                      <td>${list.maxPeople}</td>
 
-      </tr>
-      <tr>
-          <th scope="row">2</th>
-          <td>Room</td>
-          <td>100</td>
-          <td>1500000</td>
-          <td>20</td>
-          <td>1day</td>
-          <td><a class="btn btn-primary">SUA</a></td>
-          <td><a class="btn btn-primary">XOA</a></td>
+<%--                      <c:forEach var="listRent" items="${listRent}">--%>
+<%--                          <c:if test="${listRent.RentCode == list.rentTypeCode}">--%>
+<%--                          <td>${listRent.nameRent}</td>--%>
+<%--                          </c:if>--%>
+<%--                      </c:forEach>--%>
+                      <td>${list.rentTypeCode}</td>
 
-      </tr>
-      <tr>
-          <th scope="row">3</th>
-          <td>House</td>
-          <td>80</td>
-          <td>1000000</td>
-          <td>30</td>
-          <td>18 Hour</td>
-          <td><a class="btn btn-primary">SUA</a></td>
-          <td><a class="btn btn-primary">XOA</a></td>
+                      <c:forEach var="listType" items="${listType}">
+                          <c:if test="${listType.typeServiceCode == list.facilityTypeCode}">
+                              <td>${listType.nameService}</td>
+                          </c:if>
+                      </c:forEach>
 
-      </tr>
-      </tbody>
-  </table>
+                      <td>${list.roomStandar}</td>
+                      <td>${list.anyElse}</td>
+                      <td>${list.areaPool}</td>
+                      <td>${list.flood}</td>
+                      <td>${list.serviceFree}</td>
+                      <td><a class="btn btn-primary" href="/viewFacility?action=update&id=${list.facilityCode}">SUA</a></td>
+                      <td><a class="btn btn-primary" data-bs-toggle="modal"
+                             data-bs-target="#exampleModal" href="/viewFacility?action=delete&code=${list.facilityCode}"
+                             onclick="deleteConfim(${list.facilityCode})" >XOA</a></td>
+
+                  </tr>
+                  </c:forEach>
+                  </tbody>
+              </table>
+
+    <form action="/viewFacility" id="deleteFac">
+        <input hidden  name="action" value="delete">
+        <input hidden name="throwId" id="take">
+
+    </form>
+
       </div>
   </div>
-
-
-
-
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -83,13 +93,24 @@
                   ban co muon xoa khong
               </div>
               <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Khong</button>
+                  <button type="button" class="btn btn-primary" id="" onclick="takeId()">Dong Y</button>
               </div>
           </div>
       </div>
   </div>
+
 <script src="/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
 
 </body>
+
+<script>
+    function deleteConfim (id){
+        document.getElementById("take").value= id;
+    }
+    function takeId(){
+        document.getElementById("deleteFac").submit();
+    }
+</script>
+
 </html>

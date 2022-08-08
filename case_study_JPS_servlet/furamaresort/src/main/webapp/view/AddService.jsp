@@ -27,69 +27,70 @@
 
 <h1 class="text-lg-center"> THEM DICH VU  </h1>
 
-<div class="row">
+<div class="row container-fluid">
     <div class="col-lg-3"></div>
     <div class="col-lg-6 " >
-        <form class="text-dark bg-light" style="box-shadow:  10px 10px 10px black; border-radius: 10px">
+        <form class="text-dark bg-light" style="box-shadow:  10px 10px 10px black; border-radius: 10px" action="/viewFacility?action=add" method="post">
 
             <div class="css">
 
                 <label>  chon loai muon them </label>
-                  <select  onchange="addNew(this.value)">
-                      <option value="room">Room</option>
-                      <option value="villa">Villa</option>
-                      <option value="house">House</option>
+                  <select  onchange="addNew(this.value)" name ="typecodeF">
+                      <option value="0">Chon</option>
+                      <option value="3">Room</option>
+                      <option value="1">Villa</option>
+                      <option value="2">House</option>
                   </select>
             </div>
 
             <div  class="css">
                 <label>Ten Dich Vu</label>
-                <input type="text" class="form-control rounded-3 w-75" placeholder="Ten Dich Vu" >
+                <input type="text" class="form-control rounded-3 w-75" name="name" placeholder="Ten Dich Vu" >
             </div>
 
             <div  class="css">
                 <label>Dien Tich Su Dung</label>
-                <input type="text" class="form-control rounded-3 w-75" placeholder="Dien Tich Su Dung" >
+                <input type="number" class="form-control rounded-3 w-75"  name="area" placeholder="Dien Tich Su Dung" >
             </div>
 
             <div  class="css">
                 <label>Chi Phi</label>
-                <input type="text" class="form-control rounded-3 w-75" placeholder="Chi Phi" >
+                <input type="number" class="form-control rounded-3 w-75" name="cost"  placeholder="Chi Phi" >
             </div>
 
             <div  class="css">
                 <label>So Nguoi Toi Da</label>
-                <input type="text" class="form-control rounded-3 w-75" placeholder=" So Nguoi Toi Da" >
+                <input type="number"  value=0 class="form-control rounded-3 w-75"  name="people" placeholder=" So Nguoi Toi Da" >
             </div>
 
             <div  class="css" >
-                <label>Kieu Thue</label>
-                <input type="text" class="form-control rounded-3 w-75"  placeholder="Kieu Thue">
+                <label> Ma Kieu Thue</label>
+                <input type="number" class="form-control rounded-3 w-75"  name="rent" placeholder="Kieu Thue">
             </div>
 
             <div  class="css" id = "s1" style="display: none">
                 <label>Tieu chuan Phong</label>
-                <input type="text" class="form-control rounded-3 w-75"  placeholder="Tieu chuan Phong">
+                <input type="text"  value="nomal" class="form-control rounded-3 w-75" name="roomstandar" placeholder="Tieu chuan Phong">
             </div>
 
             <div  class="css" id="s2" style="display: none">
                 <label>Tien Nghi Khac</label>
-                <input type="text" class="form-control rounded-3 w-75"  placeholder="Tien Nghi Khac">
+                <input type="text"  class="form-control rounded-3 w-75" name="anyelse" placeholder="Tien Nghi Khac">
             </div>
 
             <div  class="css" id="s3" style="display: none">
                 <label>Dien Tich Ho Boi</label>
-                <input type="text" class="form-control rounded-3 w-75"  placeholder="Dien Tich Ho Boi">
+                <input type="number" value=0 class="form-control rounded-3 w-75" name="areapool" placeholder="Dien Tich Ho Boi">
             </div>
 
             <div  class="css" id="s4" style="display: none">
                 <label>So Tang</label>
-                <input type="text" class="form-control rounded-3 w-75"  placeholder="So Tang">
+                <input type="number" value=0 class="form-control rounded-3 w-75" name="flood" placeholder="So Tang">
             </div>
 
                 <div  class="css" id="s5" style="display: block">
                     <label>Dich vu mien phi di kem </label>
-                    <input type="text" class="form-control rounded-3 w-75"  placeholder="So Tang">
+                    <input type="text" class="form-control rounded-3 w-75" name="freeservice" placeholder="So Tang">
                 </div>
                  <p></p>
             <button type="submit" class="btn btn-primary text-lg-center css">Submit</button>
@@ -106,21 +107,21 @@
     function addNew(value) {
 
         switch (value){
-            case "villa":
+            case "1":
                 document.getElementById("s1").style.display = "block"
                 document.getElementById("s2").style.display = "block"
                 document.getElementById("s3").style.display = "block"
                 document.getElementById("s4").style.display = "block"
                 document.getElementById("s5").style.display = "none"
                 break
-            case "house":
+            case "2":
                 document.getElementById("s1").style.display = "block"
                 document.getElementById("s2").style.display = "block"
                 document.getElementById("s3").style.display = "none"
                 document.getElementById("s4").style.display = "block"
                 document.getElementById("s5").style.display = "none"
                 break;
-            case "room":
+            case "3":
                 document.getElementById("s1").style.display = "none"
                 document.getElementById("s2").style.display = "none"
                 document.getElementById("s3").style.display = "none"

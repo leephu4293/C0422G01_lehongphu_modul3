@@ -1,7 +1,7 @@
 package repository.impl;
 
-import model.Customer;
-import model.CustomerType;
+import model.customer.Customer;
+import model.customer.CustomerType;
 import repository.BaseConnection;
 import repository.ICustomerRepository;
 

@@ -1,13 +1,11 @@
 package service.impl;
 
-import model.Customer;
-import model.CustomerType;
-import repository.BaseConnection;
+import model.customer.Customer;
+import model.customer.CustomerType;
 import repository.ICustomerRepository;
 import repository.impl.CustomerRepository;
 import service.ICustomerService;
 
-import java.sql.Connection;
 import java.util.List;
 
 public class CustomerService implements ICustomerService {

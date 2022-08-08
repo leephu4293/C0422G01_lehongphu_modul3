@@ -65,7 +65,7 @@
                       Nhan Vien
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                      <li><a class="dropdown-item" href="/view?action=display">List</a></li>
+                      <li><a class="dropdown-item" href="#">List</a></li>
                       <li><a class="dropdown-item" href="#">Add New</a></li>
                   </ul>
               </li>
@@ -76,13 +76,8 @@
                       Dich vu
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
-                      <li><a class="dropdown-item" href="/view?action?=listservice">List</a></li>
-                      <li><a class="dropdown-item" href="#">Villa</a></li>
-                      <li><a class="dropdown-item" href="#">House</a></li>
-                      <li>
-                          <hr class="dropdown-divider">
-                      </li>
-                      <li><a class="dropdown-item" href="#">Room</a></li>
+                      <li><a class="dropdown-item" href="/viewFacility?action=display">List</a></li>
+                      <li><a class="dropdown-item" href="/viewFacility?action=add">Add New</a></li>
                   </ul>
               </li>
 
