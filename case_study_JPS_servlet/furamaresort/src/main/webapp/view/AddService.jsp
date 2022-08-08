@@ -24,7 +24,7 @@
     </style>
 </head>
 <body>
-
+ <%@include file="/view/include/header.jsp"%>
 <h1 class="text-lg-center"> THEM DICH VU  </h1>
 
 <div class="row container-fluid">
@@ -35,7 +35,7 @@
             <div class="css">
 
                 <label>  chon loai muon them </label>
-                  <select  onchange="addNew(this.value)" name ="typecodeF">
+                  <select  onchange="addNew(this.value)" name ="typecodeF" class="form-control rounded-3 w-75">
                       <option value="0">Chon</option>
                       <option value="3">Room</option>
                       <option value="1">Villa</option>
@@ -46,51 +46,62 @@
             <div  class="css">
                 <label>Ten Dich Vu</label>
                 <input type="text" class="form-control rounded-3 w-75" name="name" placeholder="Ten Dich Vu" >
+                     ${nameErr}
             </div>
 
             <div  class="css">
                 <label>Dien Tich Su Dung</label>
                 <input type="number" class="form-control rounded-3 w-75"  name="area" placeholder="Dien Tich Su Dung" >
+                   ${areaErr}
             </div>
 
             <div  class="css">
                 <label>Chi Phi</label>
                 <input type="number" class="form-control rounded-3 w-75" name="cost"  placeholder="Chi Phi" >
+                 ${costErr}
             </div>
 
             <div  class="css">
                 <label>So Nguoi Toi Da</label>
                 <input type="number"  value=0 class="form-control rounded-3 w-75"  name="people" placeholder=" So Nguoi Toi Da" >
+                  ${peopleErr}
             </div>
 
             <div  class="css" >
                 <label> Ma Kieu Thue</label>
-                <input type="number" class="form-control rounded-3 w-75"  name="rent" placeholder="Kieu Thue">
+                <select name="rent" class="form-control rounded-3 w-75">
+                    <option  value="0"> chon </option>
+                    <c:forEach var="list" items="${list}">
+                        <option value="${list.rentCode}">${list.nameRent}</option>
+                    </c:forEach>
+                </select>
             </div>
 
-            <div  class="css" id = "s1" style="display: none">
+            <div  class="css"  id = "div1" style="display: none" >
                 <label>Tieu chuan Phong</label>
-                <input type="text"  value="nomal" class="form-control rounded-3 w-75" name="roomstandar" placeholder="Tieu chuan Phong">
+                <input type="text"  id = "s1"  value="nomal" class="form-control rounded-3 w-75" name="roomstandar" placeholder="Tieu chuan Phong">
             </div>
 
-            <div  class="css" id="s2" style="display: none">
+            <div  class="css" id = "div2" style="display: none" >
                 <label>Tien Nghi Khac</label>
-                <input type="text"  class="form-control rounded-3 w-75" name="anyelse" placeholder="Tien Nghi Khac">
+                <input type="text"  id="s2" class="form-control rounded-3 w-75" name="anyelse" placeholder="Tien Nghi Khac">
             </div>
 
-            <div  class="css" id="s3" style="display: none">
+            <div  class="css"  id = "div3" style="display: none"  >
                 <label>Dien Tich Ho Boi</label>
-                <input type="number" value=0 class="form-control rounded-3 w-75" name="areapool" placeholder="Dien Tich Ho Boi">
+                <input type="number"  id="s3"  value="0" class="form-control rounded-3 w-75" name="areapool" placeholder="Dien Tich Ho Boi">
+                       ${poolErr}
             </div>
 
-            <div  class="css" id="s4" style="display: none">
+            <div  class="css" id = "div4" style="display: none" >
                 <label>So Tang</label>
-                <input type="number" value=0 class="form-control rounded-3 w-75" name="flood" placeholder="So Tang">
+                <input type="number"  id="s4"  value=0 class="form-control rounded-3 w-75" name="flood" placeholder="So Tang">
+                   ${floodErr}
             </div>
 
-                <div  class="css" id="s5" style="display: block">
+                <div  class="css" id = "div5" style="display: block" >
                     <label>Dich vu mien phi di kem </label>
-                    <input type="text" class="form-control rounded-3 w-75" name="freeservice" placeholder="So Tang">
+                    <input type="text" id="s5"  class="form-control rounded-3 w-75" name="freeservice" placeholder="So Tang">
                 </div>
                  <p></p>
             <button type="submit" class="btn btn-primary text-lg-center css">Submit</button>
@@ -108,25 +119,33 @@
 
         switch (value){
             case "1":
-                document.getElementById("s1").style.display = "block"
-                document.getElementById("s2").style.display = "block"
-                document.getElementById("s3").style.display = "block"
-                document.getElementById("s4").style.display = "block"
-                document.getElementById("s5").style.display = "none"
+                document.getElementById("div1").style.display = "block"
+                document.getElementById("div2").style.display = "block"
+                document.getElementById("div3").style.display = "block"
+                document.getElementById("div4").style.display = "block"
+                document.getElementById("div5").style.display = "none"
+                document.getElementById("s5").value = " "
+
                 break
             case "2":
-                document.getElementById("s1").style.display = "block"
-                document.getElementById("s2").style.display = "block"
-                document.getElementById("s3").style.display = "none"
-                document.getElementById("s4").style.display = "block"
-                document.getElementById("s5").style.display = "none"
+                document.getElementById("div1").style.display = "block"
+                document.getElementById("div2").style.display = "block"
+                document.getElementById("div3").style.display = "none"
+                document.getElementById("div4").style.display = "block"
+                document.getElementById("div5").style.display = "none"
+                document.getElementById("s5").value = " "
+                document.getElementById("s3").value = 0
                 break;
             case "3":
-                document.getElementById("s1").style.display = "none"
-                document.getElementById("s2").style.display = "none"
-                document.getElementById("s3").style.display = "none"
-                document.getElementById("s4").style.display = "none"
-                document.getElementById("s5").style.display = "block"
+                document.getElementById("div1").style.display = "none"
+                document.getElementById("div2").style.display = "none"
+                document.getElementById("div3").style.display = "none"
+                document.getElementById("div4").style.display = "none"
+                document.getElementById("div5").style.display = "block"
+                document.getElementById("s1").value = " "
+                document.getElementById("s2").value = " "
+                document.getElementById("s3").value = 0
+                document.getElementById("s4").value = 0
                 break;
         }
     }

@@ -30,16 +30,19 @@
             <div  class="css">
                 <label> id  </label>
                 <input type="text"   readonly class="form-control rounded-3 w-75"  value="${customer.id}" name="id" >
+
             </div>
 
             <div  class="css">
                 <label>Ho Ten </label>
                 <input type="text" class="form-control rounded-3 w-75"  name="name" placeholder="${customer.name}" >
+                ${nameErr}
             </div>
             <div  class="css">
 
                 <label>Ngay Sinh </label>
                 <input type="date" class="form-control rounded-3 w-75" name="birth" placeholder="" >
+                ${birthErr}
             </div>
 
             <div  class="css">
@@ -53,6 +56,7 @@
             <div  class="css">
                 <label>CMND</label>
                 <input type="text" class="form-control rounded-3 w-75" name="iden" placeholder="${customer.iden}" >
+                ${idenErr}
             </div>
 
             <div  class="css" >
@@ -62,6 +66,7 @@
             <div  class="css" >
                 <label>Email</label>
                 <input type="text" class="form-control rounded-3 w-75" name="email" value="${customer.email}">
+                ${emailErr}
             </div>
 
             <div  class="css">

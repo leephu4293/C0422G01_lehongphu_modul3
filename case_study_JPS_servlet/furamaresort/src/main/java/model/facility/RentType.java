@@ -1,23 +1,23 @@
 package model.facility;
 
 public class RentType {
-    private int RentCode;
+    private int rentCode;
     private String nameRent;
 
     public RentType() {
     }
 
     public RentType(int rentCode, String nameRent) {
-        RentCode = rentCode;
+        this.rentCode = rentCode;
         this.nameRent = nameRent;
     }
 
     public int getRentCode() {
-        return RentCode;
+        return rentCode;
     }
 
     public void setRentCode(int rentCode) {
-        RentCode = rentCode;
+        this.rentCode = rentCode;
     }
 
     public String getNameRent() {

@@ -6,7 +6,9 @@ import repository.ICustomerRepository;
 import repository.impl.CustomerRepository;
 import service.ICustomerService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CustomerService implements ICustomerService {
     private static ICustomerRepository  customerRepository = new CustomerRepository();
@@ -22,9 +24,35 @@ public class CustomerService implements ICustomerService {
 
 
     @Override
-    public void update(Customer customer) {
-        customerRepository.update(customer);
+    public Map<String,String> update(Customer customer) {
+        Map<String,String> errorMap = new HashMap<>();
+        if (!customer.getName().isEmpty()){
+            if (!customer.getName().matches("^[A-Z] [A-Z a-z]+$")){
+                errorMap.put("nameErr","nhap dung dinh dang");
+            }else {
+                errorMap.put("nameErr","phai nhap chu");
+            }
+            if (!customer.getIden().matches("^(0-9){9}$")){
+                errorMap.put("idenErr","nhap dung dinh dang");
+            }else {
+                errorMap.put("idenErr","phai nhap chu");
+            }
+            if (!customer.getEmail().matches("^(A-za-z0-9)+@(A-za-z0-9)+$")){
+                errorMap.put("emailErr","nhap dung dinh dang");
+            }else {
+                errorMap.put("emailErr","phai nhap chu");
+            }
+            if (!customer.getDayOfBirth().matches("^[0-9]{2}//[0-9]{2}//[1-9]{4}$")){
+                errorMap.put("birthErr","nhap dung dinh dang");
+            }else {
+                errorMap.put("birthErr","phai nhap chu");
+            }
 
+        }
+        if (errorMap.size()==0){
+            customerRepository.update(customer);
+        }
+        return errorMap;
     }
 
     @Override
@@ -38,8 +66,35 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public void AddCustomer(Customer customer) {
-      customerRepository.AddCustomer(customer);
+   public Map<String,String> AddCustomer(Customer customer) {
+     Map<String,String> errorMap = new HashMap<>();
+       if (!customer.getName().isEmpty()){
+           if (!customer.getName().matches("[A-Z] [A-Z a-z]+")){
+               errorMap.put("nameErr","nhap dung dinh dang");
+           }else {
+              errorMap.put("nameErr","phai nhap chu");
+           }
+           if (!customer.getIden().matches("(0-9){9}")){
+               errorMap.put("idenErr","nhap dung dinh dang");
+           }else {
+               errorMap.put("idenErr","phai nhap chu");
+           }
+           if (!customer.getEmail().matches("(A-za-z0-9)+@(A-za-z0-9)+")){
+               errorMap.put("emailErr","nhap dung dinh dang");
+           }else {
+               errorMap.put("emailErr","phai nhap chu");
+           }
+           if (!customer.getDayOfBirth().matches("[0-9]{2}//[0-9]{2}//[1-9]{4}")){
+               errorMap.put("birthErr","nhap dung dinh dang");
+           }else {
+               errorMap.put("birthErr","phai nhap chu");
+           }
 
+       }
+       if (errorMap.size()==0){
+           customerRepository.AddCustomer(customer);
+       }
+
+          return errorMap;
     }
 }

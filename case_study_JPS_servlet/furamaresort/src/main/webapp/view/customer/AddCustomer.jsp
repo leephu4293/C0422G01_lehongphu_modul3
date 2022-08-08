@@ -29,12 +29,14 @@
                   <h5 class="text-lg-center"> THEM MOI KHACH HANG </h5>
             <div  class="css">
                 <label>Ho Ten </label>
-                <input type="text" class="form-control rounded-3 w-75"  name="name" placeholder="Ho Ten" >
+                <input type="text" class="form-control rounded-3 w-75"  name="name" placeholder="Ho Ten" ${customerVali.name} >
+                     ${nameErr}
             </div>
             <div  class="css">
 
                 <label>Ngay Sinh </label>
                 <input type="date" class="form-control rounded-3 w-75" name="birth" placeholder="Ngay Sinh" >
+                    ${birthErr}
             </div>
 
             <div  class="css">
@@ -48,6 +50,7 @@
             <div  class="css">
                 <label>CMND</label>
                 <input type="text" class="form-control rounded-3 w-75" name="iden" placeholder=" CMND" >
+                      ${idenErr}
             </div>
 
             <div  class="css" >
@@ -57,6 +60,7 @@
             <div  class="css" >
                 <label>Email</label>
                 <input type="text" class="form-control rounded-3 w-75" name="email" >
+                    ${emailErr}
             </div>
 
             <div  class="css">

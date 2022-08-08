@@ -10,6 +10,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "CustomerServlet", value = "/view")
 public class CustomerServlet extends HttpServlet {
@@ -114,14 +115,34 @@ public class CustomerServlet extends HttpServlet {
     private void updateCustomer(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
           Customer customer = customerService.findById(id);
+          Customer customerVali = new Customer();
         int type = Integer.parseInt(request.getParameter("type"));
         String name = request.getParameter("name");
+        customerVali.setName(name);
         String birth = request.getParameter("birth");
+        customerVali.setDayOfBirth(birth);
         Boolean  gender = Boolean.valueOf(request.getParameter("gender"));
         String iden = request.getParameter("iden");
+        customerVali.setIden(iden);
         int phone = Integer.parseInt(request.getParameter("phone"));
         String email = request.getParameter("email");
+        customerVali.setEmail(email);
         String address = request.getParameter("address");
+        List<CustomerType> customerTypeList = customerService.listType();
+        request.setAttribute("listType", customerTypeList);
+        Map<String, String> errMap = customerService.AddCustomer(customerVali);
+        if (errMap.size() > 0) {
+            for (Map.Entry<String, String> entry : errMap.entrySet()) {
+                request.setAttribute(entry.getKey(), entry.getValue());
+            }
+            try {
+                request.getRequestDispatcher("/view/customer/updateCustomer.jsp").forward(request, response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
          customer.setCustomerType(type);
          customer.setName(name);
          customer.setDayOfBirth(birth);
@@ -137,18 +158,42 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void addCustomer(HttpServletRequest request, HttpServletResponse response) {
-         int type = Integer.parseInt(request.getParameter("type"));
-         String name = request.getParameter("name");
-         String birth = request.getParameter("birth");
-         Boolean  gender = Boolean.valueOf(request.getParameter("gender"));
+
+        int type = Integer.parseInt(request.getParameter("type"));
+        String name = request.getParameter("name");
+        Customer customerVali = new Customer();
+        customerVali.setName(name);
+        String birth = request.getParameter("birth");
+        customerVali.setDayOfBirth(birth);
+        Boolean gender = Boolean.valueOf(request.getParameter("gender"));
         String iden = request.getParameter("iden");
+        customerVali.setIden(iden);
         int phone = Integer.parseInt(request.getParameter("phone"));
         String email = request.getParameter("email");
+        customerVali.setEmail(email);
         String address = request.getParameter("address");
-        Customer customer = new Customer(type,name,birth,gender,iden,phone,email,address);
-         customerService.AddCustomer(customer);
-         showAdd(request,response);
-         showListCustomer(request,response);
+        List<CustomerType> customerTypeList = customerService.listType();
+        request.setAttribute("listType", customerTypeList);
+        request.setAttribute("customerVali",customerVali);
+        Map<String, String> errMap = customerService.AddCustomer(customerVali);
+        if (errMap.size() > 0) {
+            for (Map.Entry<String, String> entry : errMap.entrySet()) {
+                request.setAttribute(entry.getKey(), entry.getValue());
+            }
+            try {
+                request.getRequestDispatcher("/view/customer/AddCustomer.jsp").forward(request, response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        Customer customer = new Customer(type, name, birth, gender, iden, phone, email, address);
+        customerService.AddCustomer(customer);
+        showAdd(request, response);
+        showListCustomer(request, response);
     }
 
 

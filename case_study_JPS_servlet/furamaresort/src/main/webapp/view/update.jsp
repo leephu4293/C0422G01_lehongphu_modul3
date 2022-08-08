@@ -54,7 +54,12 @@
 
             <div  class="css" >
                 <label> Ma Kieu Thue</label>
-                <input type="number" class="form-control rounded-3 w-75"   name="rent" value="${facility.rentTypeCode}">
+                <select name="rent" value="0">
+                    <option> chon </option>
+                    <c:forEach var="list" items="${list}">
+                    <option value="${list.rentCode}">${list.nameRent}</option>
+                    </c:forEach>
+                </select>
             </div>
             <div  class="css">
                 <label>Ma Loai  dich Vu</label>
@@ -110,6 +115,7 @@
                 document.getElementById("s3").style.display = "block"
                 document.getElementById("s4").style.display = "block"
                 document.getElementById("s5").style.display = "none"
+                document.getElementById("s5").value = "";
                 break
             case "2":
                 document.getElementById("s1").style.display = "block"
@@ -124,6 +130,7 @@
                 document.getElementById("s3").style.display = "none"
                 document.getElementById("s4").style.display = "none"
                 document.getElementById("s5").style.display = "block"
+
                 break;
         }
 

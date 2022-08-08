@@ -173,10 +173,11 @@ public class FacilityRepository implements IFacilityRepository {
             PreparedStatement preparedStatement= connection.prepareStatement(DISPLAY_RENT);
 
             ResultSet resultSet =  preparedStatement.executeQuery();
+            RentType rentType;
             while (resultSet.next()){
                 int id = resultSet.getInt("ma_kieu_thue");
                 String name = resultSet.getString("ten_kieu_thue");
-                RentType rentType = new RentType(id,name);
+                rentType = new RentType(id,name);
                 listRent.add(rentType);
             }
         } catch (SQLException e) {

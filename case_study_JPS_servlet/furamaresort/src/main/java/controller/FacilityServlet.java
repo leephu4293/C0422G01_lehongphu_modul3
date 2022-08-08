@@ -11,6 +11,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "FacilityServlet", value = "/viewFacility")
 public class FacilityServlet extends HttpServlet {
@@ -40,9 +41,31 @@ public class FacilityServlet extends HttpServlet {
          }
     }
 
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        String action = request.getParameter("action");
+        if (action == null){
+            action = "";
+        }
+        switch (action){
+            case "add":
+                addFacility(request,response);
+                break;
+            case "update":
+                updateFac(request,response);
+                break;
+            default:
+                showHome(request,response);
+        }
+    }
+
     private void showUpdate(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
+        List<RentType> rentTypeList = facilityService.rentDisplay();
         Facility facility = facilityService.findByCode(id);
+        request.setAttribute("list",rentTypeList);
         request.setAttribute("facility",facility);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/view/update.jsp");
         try {
@@ -67,8 +90,8 @@ public class FacilityServlet extends HttpServlet {
 
     private void deleteFac(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("throwId"));
-         facilityService.delete(id);
-         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/view/ListService.jsp");
+        facilityService.delete(id);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/view/ListService.jsp");
         try {
             requestDispatcher.forward(request,response);
         } catch (ServletException e) {
@@ -76,11 +99,13 @@ public class FacilityServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+          display(request,response);
 
     }
 
     private void showAdd(HttpServletRequest request, HttpServletResponse response) {
+        List<RentType> rentTypeList = facilityService.rentDisplay();
+        request.setAttribute("list",rentTypeList);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/view/AddService.jsp");
         try {
             requestDispatcher.forward(request,response);
@@ -109,24 +134,7 @@ public class FacilityServlet extends HttpServlet {
     }
 
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        String action = request.getParameter("action");
-        if (action == null){
-            action = "";
-        }
-        switch (action){
-            case "add":
-                addFacility(request,response);
-                break;
-            case "update":
-                updateFac(request,response);
-                break;
-            default:
-                showHome(request,response);
-        }
-    }
+
 
     private void updateFac(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("idFac"));
@@ -154,21 +162,42 @@ public class FacilityServlet extends HttpServlet {
            facility.setFlood(flood);
            facility.setServiceFree(freeService);
            facilityService.update(facility);
-           showUpdate(request,response);
+           display(request,response);
 
     }
 
     private void addFacility(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("name");
+        Facility facilityVali= new Facility();
+        facilityVali.setName(name);
         int area = Integer.parseInt(request.getParameter("area"));
+        facilityVali.setArea(area);
         double cost = Double.parseDouble(request.getParameter("cost"));
+        facilityVali.setCost(cost);
         int people = Integer.parseInt(request.getParameter("people"));
+        facilityVali.setMaxPeople(people);
         int rent = Integer.parseInt(request.getParameter("rent"));
         int typeCodeF = Integer.parseInt(request.getParameter("typecodeF"));
         String room = request.getParameter("roomstandar");
         String anyElse= request.getParameter("anyelse");
         double areaPool= Double.parseDouble(request.getParameter("areapool"));
+        facilityVali.setAreaPool(areaPool);
         int  flood = Integer.parseInt(request.getParameter("flood"));
+        facilityVali.setFlood(flood);
+        Map<String, String> errMap = facilityService.add(facilityVali);
+        if (errMap.size() > 0) {
+            for (Map.Entry<String, String> entry : errMap.entrySet()) {
+                request.setAttribute(entry.getKey(), entry.getValue());
+            }
+            try {
+                request.getRequestDispatcher("/view/AddService.jsp").forward(request, response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         String freeService = request.getParameter("freeservice");
         Facility facility = new Facility(name,area,cost,people,rent,typeCodeF,room,anyElse,areaPool,flood,freeService);
         facilityService.add(facility);
