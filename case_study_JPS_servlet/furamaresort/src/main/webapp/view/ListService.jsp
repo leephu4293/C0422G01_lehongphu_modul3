@@ -65,7 +65,7 @@
                     <td>${list.serviceFree}</td>
                     <td><a class="btn btn-primary" href="/viewFacility?action=update&id=${list.facilityCode}">SUA</a>
                     </td>
-                    <td><a class="btn btn-primary" data-bs-toggle="modal"
+                    <td><a class="btn btn-danger" data-bs-toggle="modal"
                            data-bs-target="#exampleModal" href="/viewFacility?action=delete&code=${list.facilityCode}"
                            onclick="deleteConfim(${list.facilityCode})">XOA</a></td>
 

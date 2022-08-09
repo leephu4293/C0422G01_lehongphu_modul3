@@ -91,6 +91,8 @@ public class FacilityServlet extends HttpServlet {
     private void deleteFac(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("throwId"));
         facilityService.delete(id);
+        List<Facility> list = facilityService.display();
+        request.setAttribute("list",list);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/view/ListService.jsp");
         try {
             requestDispatcher.forward(request,response);
@@ -99,8 +101,6 @@ public class FacilityServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
-          display(request,response);
-
     }
 
     private void showAdd(HttpServletRequest request, HttpServletResponse response) {

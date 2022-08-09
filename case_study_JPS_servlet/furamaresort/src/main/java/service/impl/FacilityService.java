@@ -22,38 +22,30 @@ public class FacilityService implements IFacilityService {
     @Override
     public Map<String, String> add(Facility facility) {
         Map<String, String> errorMap = new HashMap<>();
-        if (!facility.getName().isEmpty()) {
-            if (!facility.getName().matches("^[A-Z] [A-Z a-z0-9]+$")) {
-                errorMap.put("nameErr", "nhap dung dinh dang");
+            if (!facility.getName().isEmpty()) {
+                if (!facility.getName().matches("^[A-Z][A-Z a-z0-9]+$")) {
+                    errorMap.put("nameErr", "nhap dung dinh dang");
+                }
             } else {
-                errorMap.put("nameErr", "phai nhap chu");
-            }
+                    errorMap.put("nameErr", "phai nhap chu");
+                }
+
             if (facility.getArea()<0) {
                 errorMap.put("areaErr", "nhap dung dinh dang");
-            } else {
-                errorMap.put("areaErr", "phai nhap chu");
             }
             if (facility.getCost()<0) {
                 errorMap.put("costErr", "nhap dung dinh dang");
-            } else {
-                errorMap.put("costErr", "phai nhap chu");
             }
-            if (facility.getMaxPeople()%1 != 0 && facility.getMaxPeople()>0 ) {
+            if ((Math.ceil(facility.getMaxPeople() ) != Math.floor(facility.getMaxPeople())) && facility.getMaxPeople()<0 ) {
                 errorMap.put("peopleErr", "nhap dung dinh dang");
-            } else {
-                errorMap.put("peopleErr", "phai nhap chu");
             }
             if ( (Math.ceil(facility.getAreaPool()) != Math.floor(facility.getAreaPool())) || facility.getAreaPool()<0) {
                 errorMap.put("poolErr", "nhap dung dinh dang");
-            } else {
-                errorMap.put("poolErr", "phai nhap chu");
             }
+
             if ((Math.ceil(facility.getFlood()) != Math.floor(facility.getFlood())) && facility.getFlood()<0) {
                     errorMap.put("floodErr", "nhap dung dinh dang");
-                }else {
-                    errorMap.put("floodErr", "phai nhap chu");
-                   }
-            }
+                }
 
         if (errorMap.size() == 0) {
             facilityRepository.add(facility);

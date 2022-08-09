@@ -192,8 +192,7 @@ public class CustomerServlet extends HttpServlet {
 
         Customer customer = new Customer(type, name, birth, gender, iden, phone, email, address);
         customerService.AddCustomer(customer);
-        showAdd(request, response);
-        showListCustomer(request, response);
+        showAdd(request,response);
     }
 
 

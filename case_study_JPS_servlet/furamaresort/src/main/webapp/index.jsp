@@ -17,7 +17,6 @@
 
 
   <div class="container-fluid">
-
       <div class="row">
           <div class="col-lg-3">
               <nav class="navbar navbar-light bg-light img-fluid" style="height: 150px">
