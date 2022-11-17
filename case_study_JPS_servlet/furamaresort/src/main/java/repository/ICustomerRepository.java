@@ -12,6 +12,7 @@ public interface ICustomerRepository {
    void delete(int id);
   List<CustomerType> listType();
   void  AddCustomer(Customer customer);
+   Customer search (int id , String name  );
 
 
 }

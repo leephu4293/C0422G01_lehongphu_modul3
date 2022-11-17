@@ -1,4 +1,4 @@
-package reponsitory.impl;
+package repository.impl;
 
 import model.User;
 import reponsitory.BaseReponsitory;
@@ -146,7 +146,7 @@ public class UserReponsitory implements IUserReponsitory {
                 String name = resultSet.getString("fullname");
                 String email = resultSet.getString("email");
                 String country = resultSet.getString("country");
-                User user = new User(findId,name,name,country);
+                User user = new User(findId,name,email,country);
                 userList.add(user);
             }
         } catch (SQLException e) {

@@ -11,6 +11,7 @@ import java.util.List;
 
 public class CustomerRepository implements ICustomerRepository {
     private final String SELLECT_ALL = "select*from khach_hang ";
+    private final String SEARCH = "select*from khach_hang where ma_khach_hang like ? and ho_ten like ?";
     private final String DELETE = "delete from khach_hang where ma_khach_hang = ?";
     private final String FIND_ID = "SELECT * FROM khach_hang where ma_khach_hang= ?";
     private final String UPDATE = "update khach_hang set ma_loai_khach=?,ho_ten = ?,ngay_sinh=?,gioi_tinh= ?,so_cmnd=?, so_dien_thoai=?, email=?,dia_chi=? where ma_khach_hang = ?";
@@ -144,5 +145,20 @@ public class CustomerRepository implements ICustomerRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Customer search(int id, String name) {
+        Connection connection = BaseConnection.getConnectDB();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SEARCH );
+            preparedStatement.setInt(1,id);
+            preparedStatement.setString(2,"%"+name+"%");
+            preparedStatement.executeQuery();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

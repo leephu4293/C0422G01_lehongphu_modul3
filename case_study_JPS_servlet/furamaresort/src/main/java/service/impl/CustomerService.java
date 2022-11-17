@@ -48,12 +48,13 @@ public class CustomerService implements ICustomerService {
             errorMap.put("emailErr","phai nhap chu");
         }
 
-
-//            if (!customer.getDayOfBirth().matches("^[0-9]{2}//[0-9]{2}//[1-9]{4}$")){
-//                errorMap.put("birthErr","nhap dung dinh dang");
-//            }else {
-//                errorMap.put("birthErr","phai nhap chu");
-//            }
+        if(customer.getDayOfBirth().isEmpty()){
+            if (!customer.getDayOfBirth().matches("^[0-9]{2}//[0-9]{2}//[1-9]{4}$")) {
+                errorMap.put("birthErr", "nhap dung dinh dang");
+            }
+        }else {
+                errorMap.put("birthErr","phai nhap chu");
+            }
 
         if (errorMap.size()==0){
             customerRepository.update(customer);
@@ -96,11 +97,13 @@ public class CustomerService implements ICustomerService {
                errorMap.put("emailErr","phai nhap chu");
            }
 
-//           if (!customer.getDayOfBirth().matches("[0-9]{2}//[0-9]{2}//[1-9]{4}")){
-//               errorMap.put("birthErr","nhap dung dinh dang");
-//           }else {
-//               errorMap.put("birthErr","phai nhap chu");
-//           }
+        if(customer.getDayOfBirth().isEmpty()){
+            if (!customer.getDayOfBirth().matches("^[0-9]{2}//[0-9]{2}//[1-9]{4}$")) {
+                errorMap.put("birthErr", "nhap dung dinh dang");
+            }
+        }else {
+            errorMap.put("birthErr","phai nhap chu");
+        }
 
 
        if (errorMap.size()==0){

@@ -33,3 +33,6 @@ create table order_detail(
     foreign key (p_id) references product(p_id)
 );
 
+insert into customer (c_id,c_name,c_age)
+values (1,"Minh Quan",10),(2,"Ngoc Oanh",20),(3,"Hong Ha",50);
+

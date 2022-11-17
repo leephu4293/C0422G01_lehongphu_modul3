@@ -30,9 +30,9 @@ CREATE TABLE nhan_vien (
     ma_vi_tri INT NOT NULL,
     ma_trinh_do INT NOT NULL,
     ma_bo_phan INT NOT NULL,
-    FOREIGN KEY (ma_vi_tri) REFERENCES vi_tri(ma_vi_tri),
-    FOREIGN KEY (ma_trinh_do) REFERENCES trinh_do(ma_trinh_do),
-    FOREIGN KEY (ma_bo_phan) REFERENCES bo_phan (ma_bo_phan)
+    FOREIGN KEY (ma_vi_tri) REFERENCES vi_tri(ma_vi_tri) on delete cascade,
+    FOREIGN KEY (ma_trinh_do) REFERENCES trinh_do(ma_trinh_do) on delete cascade,
+    FOREIGN KEY (ma_bo_phan) REFERENCES bo_phan (ma_bo_phan)  on delete cascade
 ); 
 
 CREATE TABLE loai_khach (
@@ -41,7 +41,7 @@ CREATE TABLE loai_khach (
 );
 
 CREATE TABLE khach_hang (
-    ma_khach_hang INT PRIMARY KEY,
+    ma_khach_hang INT PRIMARY KEY auto_increment,
     ma_loai_khach INT NOT NULL,
     ho_ten VARCHAR(45),
     ngay_sinh DATE,
@@ -50,7 +50,7 @@ CREATE TABLE khach_hang (
     so_dien_thoai VARCHAR(45),
     email VARCHAR(45),
     dia_chi VARCHAR(45),
-	FOREIGN KEY (ma_loai_khach) REFERENCES loai_khach (ma_loai_khach)
+	FOREIGN KEY (ma_loai_khach) REFERENCES loai_khach (ma_loai_khach) on delete cascade
 );
 
 CREATE TABLE loai_dich_vu (
@@ -64,7 +64,7 @@ CREATE TABLE kieu_thue (
 );
 
 CREATE TABLE dich_vu (
-    ma_dich_vu INT PRIMARY KEY,
+    ma_dich_vu INT PRIMARY KEY auto_increment,
     ten_dich_vu VARCHAR(45),
     dien_tich INT,
     chi_phi_thue DOUBLE,
@@ -76,21 +76,21 @@ CREATE TABLE dich_vu (
     dien_tich_do_boi DOUBLE,
     so_tang INT,
     dich_vu_mien_phi_di_kem TEXT,
-    FOREIGN KEY (ma_loai_dich_vu) REFERENCES loai_dich_vu (ma_loai_dich_vu),
-    FOREIGN KEY (ma_kieu_thue) REFERENCES kieu_thue (ma_kieu_thue)
+    FOREIGN KEY (ma_loai_dich_vu) REFERENCES loai_dich_vu (ma_loai_dich_vu) on delete cascade,
+    FOREIGN KEY (ma_kieu_thue) REFERENCES kieu_thue (ma_kieu_thue) on delete cascade
 );
 
 CREATE TABLE hop_dong (
     ma_hop_dong INT PRIMARY KEY,
-    ngay_lam_hop_dong DATETIME,
-    ngay_ket_thuc DATETIME,
+    ngay_lam_hop_dong DATE,
+    ngay_ket_thuc DATE,
     tien_dat_coc DOUBLE,
     ma_nhan_vien INT NOT NULL,
     ma_khach_hang INT NOT NULL,
     ma_dich_vu INT NOT NULL,
-    FOREIGN KEY (ma_nhan_vien) REFERENCES nhan_vien (ma_nhan_vien),
-    FOREIGN KEY (ma_khach_hang) REFERENCES khach_hang (ma_khach_hang),
-    FOREIGN KEY (ma_dich_vu) REFERENCES dich_vu (ma_dich_vu)
+    FOREIGN KEY (ma_nhan_vien) REFERENCES nhan_vien (ma_nhan_vien) on delete cascade,
+    FOREIGN KEY (ma_khach_hang) REFERENCES khach_hang (ma_khach_hang) on delete cascade,
+    FOREIGN KEY (ma_dich_vu) REFERENCES dich_vu (ma_dich_vu) on delete cascade
 );
 
 CREATE TABLE dich_vu_di_kem (
@@ -105,8 +105,8 @@ CREATE TABLE hop_dong_chi_tiet (
     ma_hop_dong INT NOT NULL ,
     ma_dich_vu_di_kem INT NOT NULL,
     so_luong INT,
-    FOREIGN KEY (ma_hop_dong) REFERENCES hop_dong (ma_hop_dong),
-	FOREIGN KEY  (ma_dich_vu_di_kem) REFERENCES dich_vu_di_kem (ma_dich_vu_di_kem)
+    FOREIGN KEY (ma_hop_dong) REFERENCES hop_dong (ma_hop_dong) on delete cascade,
+	FOREIGN KEY  (ma_dich_vu_di_kem) REFERENCES dich_vu_di_kem (ma_dich_vu_di_kem) on delete cascade
 );
 
 
@@ -432,7 +432,7 @@ UPDATE  khach_hang kh
 SET kh.ma_loai_khach = 1
 WHERE kh.ma_loai_khach = 2 
 AND 
-̣̣(kh.ma_khach_hang IN ( 
+(kh.ma_khach_hang IN ( 
 	SELECT ma_khach_hang 
     FROM (
 		SELECT  k.ma_khach_hang
@@ -442,7 +442,7 @@ AND
 			JOIN hop_dong_chi_tiet hdc ON hd.ma_hop_dong= hdc.ma_hop_dong
 			JOIN dich_vu_di_kem dvdk ON hd.ma_dich_vu =dv.ma_dich_vu
          WHERE YEAR(hd.ngay_lam_hop_dong) = 2021
-         GROUP BY hd.ma_hop_dong
+         GROUP BY k.ma_khach_hang
          HAVING SUM(dv.chi_phi_thue+(hdc.so_luong * dvdk.gia)) > 1000000) as tab ) );
  SELECT * FROM khach_hang;       
  
@@ -466,7 +466,9 @@ AND
 	SELECT ma_dich_vu_di_kem
 	FROM hop_dong_chi_tiet hdc 
     JOIN hop_dong hd ON hd.ma_hop_dong = hdc.ma_hop_dong
-	WHERE hdc.so_luong > 10 AND YEAR (hd.ngay_lam_hop_dong )= 2020);
+	WHERE  YEAR (hd.ngay_lam_hop_dong )= 2020
+    GROUP BY ma_dich_vu_di_kem
+    HAVING SUM(hdc.so_luong) > 10 );
  set sql_safe_updates = 1;
  
  -- 20.Hiển thị thông tin của tất cả các nhân viên và khách hàng có trong hệ thống, 
@@ -480,6 +482,32 @@ AND
  -- 21 
  
  
+ 
+DELIMITER $$
+
+CREATE PROCEDURE get_total()
+
+BEGIN
+select  
+ dv.ten_dich_vu as NameService,
+ kh.ho_ten as NameCustomer,
+ hd.ngay_lam_hop_dong as DayStartDTOs ,
+ hd.ma_hop_dong as IdContract,
+ hd.ngay_ket_thuc as DayEndDTOs ,
+ hd.tien_dat_coc as DepositDTOs,
+ SUM(chi_phi_thue + IFNULL((so_luong*gia),0)) as TotalDTOS
+FROM khach_hang as kh
+	LEFT JOIN hop_dong as hd ON kh.ma_khach_hang= hd.ma_khach_hang
+	LEFT JOIN hop_dong_chi_tiet as hdc  ON hdc.ma_hop_dong = hd.ma_hop_dong
+	LEFT JOIN dich_vu_di_kem as dvdk ON dvdk.ma_dich_vu_di_kem= hdc.ma_dich_vu_di_kem
+	LEFT JOIN dich_vu dv  ON dv.ma_dich_vu = hd.ma_dich_vu
+   
+where hd.ngay_ket_thuc > curdate()
+group by hd.ma_hop_dong ;
+END $$
+DELIMITER ;
+ 
+   call get_total()
  
 
  

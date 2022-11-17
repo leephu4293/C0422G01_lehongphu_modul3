@@ -4,7 +4,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 
 @WebServlet(name = "exerciseServlet", value = "/count")
-public class ExerciseServlet extends HttpServlet {
+public class DiscountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
